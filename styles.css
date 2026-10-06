@@ -1,0 +1,349 @@
+/* ---------- Общее ---------- */
+
+.kc-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-4-2);
+}
+
+.kc-nav-title {
+  font-weight: var(--font-semibold);
+  font-size: var(--font-ui-large);
+}
+
+.kc-nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+}
+
+.kc-nav-btn {
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+.kc-nav-today {
+  font-size: var(--font-ui-smaller);
+  padding: var(--size-2-1) var(--size-4-2);
+  height: auto;
+}
+
+.kc-weekday {
+  text-align: center;
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  padding-bottom: var(--size-4-1);
+}
+
+.kc-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-4-1) var(--size-4-3);
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+}
+
+.kc-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+}
+
+.kc-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--kc-color);
+}
+
+/* Плашка события: цветная полоска слева = тип даты. */
+.kc-chip {
+  position: relative;
+  padding: 2px 6px 2px 9px;
+  border-radius: var(--radius-s);
+  background: color-mix(in srgb, var(--kc-color) 14%, var(--background-primary));
+  font-size: var(--font-ui-smaller);
+  line-height: 1.3;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.kc-chip::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--kc-color);
+}
+
+.kc-chip:hover {
+  background: color-mix(in srgb, var(--kc-color) 24%, var(--background-primary));
+}
+
+.kc-chip.is-done {
+  opacity: 0.5;
+}
+
+.kc-chip.is-done .kc-chip-title {
+  text-decoration: line-through;
+}
+
+.kc-chip.is-dragging {
+  opacity: 0.4;
+}
+
+.kc-chip-label {
+  font-weight: var(--font-semibold);
+  color: var(--kc-color);
+  margin-right: 4px;
+}
+
+.kc-chip-title {
+  color: var(--text-normal);
+}
+
+.kc-chip-lane {
+  color: var(--text-faint);
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.is-drop-target {
+  outline: 2px dashed var(--interactive-accent);
+  outline-offset: -2px;
+}
+
+/* ---------- Большой месяц ---------- */
+
+.kc-month {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-3);
+  padding: var(--size-4-4) var(--size-4-6);
+}
+
+.kc-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+}
+
+.kc-month .kc-nav-title {
+  font-size: 1.6em;
+}
+
+.kc-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  flex: 1;
+}
+
+.kc-cell {
+  min-height: 110px;
+  border-top: 1px solid var(--background-modifier-border);
+  border-left: 1px solid var(--background-modifier-border);
+  padding: var(--size-4-1);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.kc-grid > .kc-cell:nth-child(7n) {
+  border-right: 1px solid var(--background-modifier-border);
+}
+
+.kc-grid > .kc-cell:nth-last-child(-n + 7) {
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.kc-cell.is-weekend {
+  background: var(--background-secondary);
+}
+
+.kc-cell.is-other-month > * {
+  opacity: 0.45;
+}
+
+.kc-cell-head {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.kc-day-num {
+  all: unset;
+  position: relative;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: 11px;
+  text-align: center;
+  line-height: 22px;
+  font-size: var(--font-ui-small);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.kc-day-num:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+/* Точка под числом — есть заметка дня. */
+.kc-day-num.has-note::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.kc-cell.is-today .kc-day-num {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  font-weight: var(--font-semibold);
+}
+
+.kc-cell.is-today .kc-day-num.has-note::after {
+  background: var(--interactive-accent);
+}
+
+.kc-cell-events {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+/* ---------- Мини-календарь ---------- */
+
+.kc-mini {
+  padding: var(--size-4-2) var(--size-4-3);
+}
+
+.kc-mini .kc-nav {
+  margin-bottom: var(--size-4-2);
+}
+
+.kc-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  row-gap: 2px;
+}
+
+.kc-mini-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 0 2px;
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  font-size: var(--font-ui-small);
+}
+
+.kc-mini-cell:hover {
+  background: var(--background-modifier-hover);
+}
+
+.kc-mini-cell.is-weekend {
+  color: var(--text-muted);
+}
+
+.kc-mini-cell.is-other-month {
+  color: var(--text-faint);
+}
+
+.kc-mini-num {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+/* Есть заметка дня — тонкое кольцо, как отметка у Calendar. */
+.kc-mini-cell.has-note .kc-mini-num {
+  box-shadow: inset 0 0 0 1px var(--text-faint);
+}
+
+.kc-mini-cell.is-today .kc-mini-num {
+  color: var(--interactive-accent);
+  font-weight: var(--font-bold);
+}
+
+.kc-mini-cell.is-selected .kc-mini-num {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  box-shadow: none;
+}
+
+.kc-dots {
+  display: flex;
+  gap: 2px;
+  height: 6px;
+  margin-top: 1px;
+}
+
+.kc-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--kc-color);
+}
+
+.kc-dot.is-done {
+  opacity: 0.4;
+}
+
+.kc-agenda {
+  margin-top: var(--size-4-3);
+  padding-top: var(--size-4-3);
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.kc-agenda-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-4-2);
+  margin-bottom: var(--size-4-2);
+}
+
+.kc-agenda-title {
+  font-weight: var(--font-semibold);
+}
+
+.kc-agenda-title::first-letter {
+  text-transform: uppercase;
+}
+
+.kc-agenda-note {
+  font-size: var(--font-ui-smaller);
+  padding: var(--size-2-1) var(--size-4-2);
+  height: auto;
+}
+
+.kc-agenda-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kc-agenda-list .kc-chip {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.kc-agenda-empty {
+  color: var(--text-faint);
+  font-size: var(--font-ui-small);
+}

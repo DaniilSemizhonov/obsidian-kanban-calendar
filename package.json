@@ -1,0 +1,22 @@
+{
+  "name": "obsidian-kanban-calendar",
+  "version": "1.0.0",
+  "description": "Календарь задач с Kanban-досок для Obsidian",
+  "main": "main.js",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --format=cjs --platform=browser --target=es2018 --external:obsidian --outfile=main.js",
+    "check": "tsc --noEmit",
+    "test": "node --import tsx --test test/*.test.ts"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "moment": "^2.29.4",
+    "obsidian": "^1.13.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "obsidian-daily-notes-interface": "^0.9.5"
+  }
+}

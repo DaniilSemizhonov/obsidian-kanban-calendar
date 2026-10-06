@@ -1,0 +1,9 @@
+{
+  "id": "kanban-calendar",
+  "name": "Канбан-календарь",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Календарь для задач с Kanban-досок: даты карточек и сроки из свойств связанных заметок, перенос мышью, мини-календарь и ежедневные заметки.",
+  "author": "Daniil Semizhonov",
+  "isDesktopOnly": false
+}
